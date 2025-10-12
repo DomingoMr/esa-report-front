@@ -5,96 +5,33 @@
       <p>Este asistente te guiará paso a paso para realizar y documentar tu análisis de doble materialidad, el corazón de tu informe CSRD.</p>
     </div>
 
-    <!-- Columna con 3 cajitas -->
+    <!-- Flujo por fases -->
     <section class="form-stack">
-      <!-- PASO 1 -->
-      <div class="panel">
+      <!-- FASE 1 -->
+      <div v-if="faseActual === 1" class="panel">
         <div class="step-head">
           <div class="step-title">
-            <strong>Grupos de Interés Consultados</strong>
-            <div class="subtitle">Selecciona los grupos de stakeholders que has consultado durante tu análisis</div>
-          </div>
-        </div>
-
-        <div class="options">
-          <div v-for="(opt, i) in paso1" :key="'p1-' + i" class="option-row">
-            <label class="check-label">
-              <input type="checkbox" v-model="opt.checked" />
-              <span>{{ opt.label }}</span>
-            </label>
-
-            <div class="option-actions">
-              <button
-                class="btn btn-secondary"
-                :disabled="!opt.checked"
-                @click="triggerFile('p1', i)"
-              >
-                Adjuntar archivo
-              </button>
-              <span class="file-name" v-if="opt.fileName">{{ opt.fileName }}</span>
-              <input
-                type="file"
-                :ref="`file-p1-${i}`"
-                class="file-hidden"
-                @change="handleFile($event, 'p1', i)"
-              />
-            </div>
+            <strong>Análisis Interno (Fuente de Datos 1)</strong>
           </div>
         </div>
       </div>
 
-      <!-- PASO 2 -->
-      <div class="panel">
+      <!-- FASE 2 -->
+      <div v-else-if="faseActual === 2" class="panel">
         <div class="step-head">
           <div class="step-title">
-            <strong>Métodos de Consulta Utilizados  </strong>
-            <div class="subtitle">Indica qué métodos has empleado para recopilar información de tus stakeholders</div>
-          </div>
-        </div>
-
-        <div class="options">
-          <div v-for="(opt, i) in paso2" :key="'p2-' + i" class="option-row">
-            <label class="check-label">
-              <input type="checkbox" v-model="opt.checked" />
-              <span>{{ opt.label }}</span>
-            </label>
-
-            <div class="option-actions">
-              <button
-                class="btn btn-secondary"
-                :disabled="!opt.checked"
-                @click="triggerFile('p2', i)"
-              >
-                Adjuntar archivo
-              </button>
-              <span class="file-name" v-if="opt.fileName">{{ opt.fileName }}</span>
-              <input
-                type="file"
-                :ref="`file-p2-${i}`"
-                class="file-hidden"
-                @change="handleFile($event, 'p2', i)"
-              />
-            </div>
+            <strong>Análisis Externo (Fuente de Datos 2)</strong>
           </div>
         </div>
       </div>
 
-      <!-- PASO 3 -->
-      <div class="panel">
+      <!-- FASE 3 -->
+      <div v-else class="panel">
         <div class="step-head">
           <div class="step-title">
-            <strong>Descripción del Proceso General</strong>
-            <div class="subtitle">Describe brevemente las fases principales de tu análisis de doble materialidad</div>
+            <strong>Consulta a Stakeholders (Fuente de Datos 3)</strong>
           </div>
         </div>
-
-        <label class="field-label">Describe brevemente las fases de tu análisis</label>
-        <textarea
-          v-model="textoPaso3"
-          rows="8"
-          class="field-textarea"
-          placeholder="Escribe aquí tu marco estratégico..."
-        ></textarea>
       </div>
     </section>
 
@@ -104,7 +41,7 @@
         Volver al dashboard
       </button>
       <button class="btn btn-primary" @click="saveAndContinue">
-        Guardar y continuar al siguiente módulo
+        {{ ctaLabel }}
       </button>
     </div>
   </div>
@@ -115,43 +52,24 @@ export default {
   name: 'Module2Materiality',
   data() {
     return {
-      paso1: [
-        { label: 'Empleados', checked: false, fileName: '' },
-        { label: 'Clientes', checked: false, fileName: '' },
-        { label: 'Proveedores', checked: false, fileName: '' },
-        { label: 'Inversores', checked: false, fileName: '' },
-        { label: 'Comunidad Local', checked: false, fileName: '' },
-      ],
-      paso2: [
-        { label: 'Encuestas online', checked: false, fileName: '' },
-        { label: 'Entrevistas', checked: false, fileName: '' },
-        { label: 'Workshops', checked: false, fileName: '' },
-        { label: 'Análisis documental', checked: false, fileName: '' },
-      ],
-      textoPaso3: 'Ej: Hemos seguido un proceso de 4 fases: 1. Comprensión del contexto, 2. Identificación de IROs...',
+      faseActual: 1,
     };
   },
+  computed: {
+    ctaLabel() {
+      return this.faseActual < 3
+        ? 'Guardar y continuar a la siguiente fase'
+        : 'Guardar y continuar al siguiente módulo';
+    },
+  },
   methods: {
-    triggerFile(group, index) {
-      const refKey = `file-${group}-${index}`;
-      const input = this.$refs[refKey];
-      if (input && input[0]) input[0].click();
-      else if (input) input.click();
-    },
-    handleFile(e, group, index) {
-      const file = e.target.files?.[0];
-      if (!file) return;
-      if (group === 'p1') this.paso1[index].fileName = file.name;
-      if (group === 'p2') this.paso2[index].fileName = file.name;
-    },
     saveAndContinue() {
-      const payload = {
-        paso1: this.paso1,
-        paso2: this.paso2,
-        paso3: this.textoPaso3,
-      };
-      console.log('Guardando Módulo 2:', payload);
-      this.$router.push('/modulos/3'); // <-- antes iba al dashboard
+      console.log('Guardando Módulo 2 - Fase', this.faseActual);
+      if (this.faseActual < 3) {
+        this.faseActual += 1;
+        return;
+      }
+      this.$router.push('/modulos/3');
     },
   },
 };
