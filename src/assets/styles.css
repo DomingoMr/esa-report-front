@@ -1,0 +1,106 @@
+/* ======= Tema ======= */
+:root{
+    --bg:#0e3b39;            /* fondo principal verdoso */
+    --panel:#144a46;         /* tarjetas */
+    --panel-hover:#1a5c56;   /* hover */
+    --sidebar:#0b2423;       /* sidebar */
+    --text:#e9fff6;          /* texto */
+    --mutetext:#a8e0d2;      /* texto suave */
+    --accent:#19c388;        /* acento verde */
+    --accent-weak: rgba(25,195,136,.15);
+    --accent-ring: rgba(25,195,136,.4);
+    --border: rgba(255,255,255,.08);
+    --shadow: 0 6px 24px rgba(0,0,0,.25);
+    --radius: 16px;
+  }
+  
+  *{box-sizing:border-box}
+  html,body,#app{height:100%}
+  body{
+    margin:0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    background:var(--bg);
+    color:var(--text);
+  }
+  
+  /* ======= Layout ======= */
+  .app{min-height:100vh; display:flex;}
+  .sidebar{
+    width:256px; background:var(--sidebar);
+    border-right:1px solid var(--border);
+    display:flex; flex-direction:column;
+  }
+  .sidebar .brand{padding:24px 20px 16px}
+  .sidebar .brand h1{margin:0; font-weight:800; font-size:20px; line-height:1.1}
+  .sidebar .brand p{margin:4px 0 0; color:var(--mutetext); font-size:12px}
+  
+  .nav{padding:8px}
+  .nav button{
+    width:100%; text-align:left; border:0; outline:0; cursor:pointer;
+    padding:12px 16px; border-radius:12px; background:transparent; color:var(--text);
+  }
+  .nav button:hover{background:rgba(255,255,255,.06)}
+  .nav button.active{background:rgba(255,255,255,.10); box-shadow:0 0 0 1px rgba(255,255,255,.10) inset}
+  
+  .sidebar .foot{margin-top:auto; padding:16px; color:var(--mutetext); font-size:12px}
+  
+  /* ======= Main ======= */
+  .main{flex:1; padding:24px 24px 48px}
+  .header h2{margin:0; font-size:32px; font-weight:850; letter-spacing:.2px}
+  .header p{margin:8px 0 0; color:var(--mutetext)}
+  
+  /* ======= Tarjeta / panel ======= */
+  .panel{
+    background:var(--panel); border:1px solid var(--border);
+    border-radius:var(--radius); padding:24px; box-shadow:var(--shadow);
+  }
+  
+  /* ======= Barra de progreso ======= */
+  .progress-wrap{margin-top:16px}
+  .progress-track{
+    height:8px; background:rgba(0,0,0,.20); border-radius:999px; overflow:hidden;
+  }
+  .progress-bar{
+    height:100%; background:var(--accent);
+    border-radius:999px; transition:width .25s ease;
+  }
+  .progress-meta{
+    margin-top:8px; color:var(--mutetext); font-size:14px; display:flex; justify-content:space-between;
+  }
+  
+  /* ======= Grid 1→2→3 columnas ======= */
+  .grid{
+    display:grid; gap:24px;
+    grid-template-columns: 1fr;           /* móvil */
+  }
+  @media (min-width: 768px){
+    .grid{ grid-template-columns: 1fr 1fr; }  /* tablet: 2 */
+  }
+  @media (min-width: 1280px){
+    .grid{ grid-template-columns: 1fr 1fr 1fr; } /* desktop: 3 */
+  }
+  
+  /* ======= Módulo (cajita) ======= */
+  .module{
+    background:color-mix(in srgb, var(--panel) 95%, transparent);
+    border:1px solid var(--border); border-radius:var(--radius);
+    padding:20px; box-shadow:var(--shadow); cursor:pointer; text-align:left;
+    transition:background .2s ease, transform .06s ease;
+  }
+  .module:hover{ background:var(--panel-hover); transform:translateY(-1px); }
+  .module .top{ display:flex; align-items:flex-start; justify-content:space-between; }
+  .module .icon{
+    width:40px; height:40px; border-radius:12px; background:rgba(0,0,0,.20);
+    display:grid; place-content:center; font-size:18px;
+  }
+  .module h4{ margin:0 0 0 12px; font-size:20px; font-weight:850; line-height:1.2; }
+  .badge{
+    font-size:11px; font-weight:700; padding:6px 10px; border-radius:999px;
+    color:var(--accent); background:var(--accent-weak); box-shadow:0 0 0 1px var(--accent-ring) inset;
+  }
+  .module p{ margin:12px 0 0; color:var(--mutetext); }
+  
+  /* ======= Util ======= */
+  .hidden-md{ display:none; }
+  @media (min-width:768px){ .hidden-md{ display:flex; } }
+  
