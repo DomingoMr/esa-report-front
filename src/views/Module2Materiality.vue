@@ -374,25 +374,25 @@ export default {
       usernameConfirmed: false,
       faseActual: 1,
       fase1: {
-        estrategia: { p1: 'Ejemplo...', p2: 'Ejemplo...', p3: 'Ejemplo...' },
+        estrategia: { p1: '', p2: '', p3: '' },
         riesgos: {
-          operativos: 'Ejemplo...',
-          cadena: 'Ejemplo...',
-          mercado: 'Ejemplo...',
-          vinculoSostenibilidad: 'Ejemplo...',
+          operativos: '',
+          cadena: '',
+          mercado: '',
+          vinculoSostenibilidad: '',
         },
         dafo: {
-          fortalezas: 'Ejemplo...',
-          debilidades: 'Ejemplo...',
-          oportunidades: 'Ejemplo...',
-          amenazas: 'Ejemplo...',
+          fortalezas: '',
+          debilidades: '',
+          oportunidades: '',
+          amenazas: '',
         },
-        cadenaValor: { p8: 'Ejemplo...', p9: 'Ejemplo...', p10: 'Ejemplo...', p11: 'Ejemplo...' },
+        cadenaValor: { p8: '', p9: '', p10: '', p11: '' },
       },
       usernameError: '',
       fase2: {
-      benchmarking: { p1: 'Ejemplo...', p2: 'Ejemplo...' },
-      regulatorio:  { p3: 'Ejemplo...', p4: 'Ejemplo...', p5: 'Ejemplo...' },
+      benchmarking: { p1: '', p2: '' },
+      regulatorio:  { p3: '', p4: '', p5: '' },
       frameworks:   { selected: [] }
     },
     frameworkOptions: [
