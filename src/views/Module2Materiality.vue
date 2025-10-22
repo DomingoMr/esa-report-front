@@ -52,7 +52,7 @@
             <label class="field-label">¿En qué países y regiones geográficas óperas principalmente?</label>
             <textarea class="field-textarea" rows="3" v-model="fase1.estrategia.p2" placeholder="Ejemplo..."></textarea>
 
-            <label class="field-label">¿Cuáles son tus planes estratégicos de crecimiento para los próximos 5 años?</label>
+            <label class="field-label">¿Cuáles son tus planes estratégicos de crecimiento para los próximos 5 años? ¿Cómo se espera que estos planes modifiquen tu operación?</label>
             <textarea class="field-textarea" rows="3" v-model="fase1.estrategia.p3" placeholder="Ejemplo..."></textarea>
           </div>
           <div class="box-actions">
@@ -81,7 +81,7 @@
             <h3 class="box-title">Análisis del Mapa de Riesgos Corporativo</h3>
           </div>
           <div class="box-body">
-            <label class="field-label">Riesgos Operativos: Piensa en el día a día de tu negocio. ¿Cuáles son las 3 principales amenazas que podrían detener tu producción o servicio mañana?</label>
+            <label class="field-label">Riesgos Operativos: Piensa en el día a día de tu negocio. ¿Cuáles son las 5 principales amenazas que podrían detener tu producción o servicio mañana?</label>
             <textarea class="field-textarea" rows="3" v-model="fase1.riesgos.operativos" placeholder="Ejemplo: Fallo de una máquina crítica, Corte de suministro eléctrico, Falta de personal clave"></textarea>
 
             <label class="field-label">Riesgos de la Cadena de Suministro: ¿De qué 3 materias primas o proveedores dependes más críticamente? ¿Qué pasaría si te fallaran?</label>
@@ -119,14 +119,14 @@
             <h3 class="box-title">Talleres Internos y Entrevistas (Análisis DAFO)</h3>
           </div>
           <div class="box-body">
-            <label class="field-label">FORTALEZAS: Piensa en lo que hace a tu empresa especial y eficiente. ¿En qué áreas de tu operación ya sois buenos en términos de sostenibilidad, aunque no lo llaméis así?</label>
+            <label class="field-label">FORTALEZAS: Piensa en lo que hace a tu empresa especial y eficiente. ¿En qué áreas de tu operación ya sois buenos en términos de sostenibilidad, aunque no lo llaméis así? ¿Cuáles son los impactos positivos más significativos que tu modelo de negocio genera intencionadamente en la sociedad o el medio ambiente?</label>
             <textarea class="field-textarea" rows="3" v-model="fase1.dafo.fortalezas" placeholder="enemos un proceso productivo que genera muy pocos residuos, Nuestros empleados están muy formados y comprometidos, Usamos proveedores locales para el 80% de nuestras compras"></textarea>
 
-            <label class="field-label">DEBILIDADES: ¿Cuáles son los mayores desafíos internos o las áreas donde sabes que tu empresa tiene un impacto negativo significativo?</label>
+            <label class="field-label">DEBILIDADES: ¿Cuáles son los mayores desafíos internos o las áreas donde sabes que tu empresa tiene un impacto negativo significativo? ¿Cuáles son los impactos negativos inherentes a tu modelo de negocio?</label>
             <textarea class="field-textarea" rows="3" v-model="fase1.dafo.debilidades" placeholder="Nuestra maquinaria es antigua y consume mucha energía, Tenemos una alta dependencia de embalajes plásticos no reciclables"></textarea>
 
-            <label class="field-label">OPORTUNIDADES: Mirando al mercado y a tus clientes, ¿qué tendencia de sostenibilidad crees que podría convertirse en una nueva línea de negocio o una ventaja competitiva para ti?</label>
-            <textarea class="field-textarea" rows="3" v-model="fase1.dafo.oportunidades" placeholder="Los clientes piden cada vez más productos con embalaje ecológico, Podríamos vender nuestros subproductos como materia prima a otra industria"></textarea>
+            <label class="field-label">OPORTUNIDADES: Enumera las 3 principales oportunidades estratégicas que la empresa está explorando. Para cada oportunidad, describe su vínculo con tendencias de sostenibilidad.</label>
+            <textarea class="field-textarea" rows="3" v-model="fase1.dafo.oportunidades" placeholder="Oportunidad de nuevos mercados: vinculada a demanda de productos circulares o bajos en carbono"></textarea>
 
             <label class="field-label">AMENAZAS: ¿Qué cambio en la regulación, en los precios o en las exigencias de tus grandes clientes relacionado con la sostenibilidad te preocupa más que pueda afectar a tu negocio?</label>
             <textarea class="field-textarea" rows="3" v-model="fase1.dafo.amenazas" placeholder="Un nuevo impuesto al plástico dispararía nuestros costes, Nuestro principal cliente nos va a exigir certificar nuestra huella de carbono para seguir siendo su proveedor"></textarea>
@@ -188,6 +188,65 @@
             </div>
           </transition>
         </div>
+
+        <!-- Cajita 5: Preocupaciones de la dirección -->
+        <div class="box">
+          <div class="box-head">
+            <h3 class="box-title">Preocupaciones de la dirección</h3>
+          </div>
+          <div class="box-body">
+            <label class="field-label">¿Cuáles han sido los temas de sostenibilidad más discutidos por el Consejo de Administración o la alta dirección en el último año?</label>
+            <textarea class="field-textarea" rows="3" v-model="fase1.preocupacionesDireccion.p12" placeholder="Ciberseguridad, retención de talento, cumplimiento regulatorio ambiental..."></textarea>
+          </div>
+          <div class="box-actions">
+            <button class="btn btn-primary" :disabled="!usernameConfirmed || loading.preocupacionesDireccion" @click="submitPreocupacionesDireccion">
+              {{ loading.cadenaValor ? 'Enviando...' : 'Enviar información' }}
+            </button>
+          </div>
+
+          <transition name="fade">
+            <div v-if="responses.preocupacionesDireccion" class="response-box">
+              <strong>Respuesta del asistente:</strong>
+              <p>{{ responses.preocupacionesDireccion }}</p>
+            </div>
+          </transition>
+          <transition name="fade">
+            <div v-if="errors.preocupacionesDireccion" class="response-box error">
+              <strong>Error:</strong>
+              <p>{{ errors.preocupacionesDireccion }}</p>
+            </div>
+          </transition>
+        </div>
+
+
+      <!-- Cajita 6: Politicas y compromisos existentes -->
+        <div class="box">
+          <div class="box-head">
+            <h3 class="box-title">Políticas y Compromisos Existentes</h3>
+          </div>
+          <div class="box-body">
+            <label class="field-label">¿Dispone la empresa de políticas o códigos de conducta relacionados con la ética, los derechos humanos, el medio ambiente o la anticorrupción? Por favor, nómbralos.</label>
+            <textarea class="field-textarea" rows="3" v-model="fase1.politicasCompromisos.p13" placeholder="Ejemplo..."></textarea>
+          </div>
+          <div class="box-actions">
+            <button class="btn btn-primary" :disabled="!usernameConfirmed || loading.politicasCompromisos" @click="submitPoliticasCompromisos">
+              {{ loading.cadenaValor ? 'Enviando...' : 'Enviar información' }}
+            </button>
+          </div>
+
+          <transition name="fade">
+            <div v-if="responses.politicasCompromisos" class="response-box">
+              <strong>Respuesta del asistente:</strong>
+              <p>{{ responses.politicasCompromisos }}</p>
+            </div>
+          </transition>
+          <transition name="fade">
+            <div v-if="errors.politicasCompromisos" class="response-box error">
+              <strong>Error:</strong>
+              <p>{{ errors.politicasCompromisos }}</p>
+            </div>
+          </transition>
+        </div>
       </div>
 
       <!-- FASE 2 -->
@@ -242,6 +301,20 @@
 
       <label class="field-label">¿Qué tendencias de sostenibilidad podrían representar un RIESGO para tu negocio si no se gestionan adecuadamente?</label>
       <textarea class="field-textarea" rows="3" v-model="fase2.regulatorio.p5" placeholder="Ejemplo: La preferencia de los grandes clientes por proveedores que puedan demostrar una gestión activa de su huella de carbono."></textarea>
+
+      <label class="field-label">¿Ha habido alguna controversia pública o incidente negativo (ambiental o social) en tu sector durante los últimos dos años? Descríbelo brevemente.</label>
+      <textarea class="field-textarea" rows="3" v-model="fase2.regulatorio.p6" placeholder="Ejemplo..."></textarea>
+
+      <label class="field-label">¿Qué nueva legislación o regulación en materia de sostenibilidad (actual o futura) te preocupa más?</label>
+      <textarea class="field-textarea" rows="3" v-model="fase2.regulatorio.p7" placeholder="CSDDD, normativas sobre plásticos, taxonomía verde..."></textarea>
+    
+      <label class="field-label">¿Qué tipo de información ESG te están pidiendo los bancos o inversores?</label>
+      <textarea class="field-textarea" rows="3" v-model="fase2.regulatorio.p8" placeholder="Huella de carbono, datos de diversidad, políticas de derechos humanos..."></textarea>
+    
+      <label class="field-label">¿Hay algún grupo de interés (clientes importantes, ONGs, comunidades) que te haya solicitado información específica sobre algún tema de sostenibilidad en particular? ¿Cuál?</label>
+      <textarea class="field-textarea" rows="3" v-model="fase2.regulatorio.p9" placeholder="Ejemplo..."></textarea>
+    
+    
     </div>
     <div class="box-actions">
       <button class="btn btn-primary" :disabled="!usernameConfirmed || loading.regulatorio" @click="submitRegulatorio">
@@ -388,11 +461,13 @@ export default {
           amenazas: '',
         },
         cadenaValor: { p8: '', p9: '', p10: '', p11: '' },
+        preocupacionesDireccion: {p12: ''},
+        politicasCompromisos: {p13: ''}
       },
       usernameError: '',
       fase2: {
       benchmarking: { p1: '', p2: '' },
-      regulatorio:  { p3: '', p4: '', p5: '' },
+      regulatorio:  { p3: '', p4: '', p5: '', p6: '', p7: '', p8: '', p9: ''},
       frameworks:   { selected: [] }
     },
     frameworkOptions: [
@@ -408,6 +483,8 @@ export default {
   riesgos: '/riskAndOpportunities',
   dafo: '/dafo',
   cadenaValor: '/valueChain',
+  preocupacionesDireccion: '/managementConcerns',
+  politicasCompromisos: '/policiesAndCommits',
   // Fase 2
   benchMarking: '/benchMarking',
   regulatoryAnalysis: '/regulatoryAnalysis',
@@ -422,6 +499,8 @@ loading: {
   riesgos: false,
   dafo: false,
   cadenaValor: false,
+  preocupacionesDireccion: false,
+  politicasCompromisos: false,
   // Fase 2
   benchMarking: false,
   regulatorio: false,
@@ -439,6 +518,8 @@ responses: {
   regulatorio: '',
   frameworks: '',
   execute: '',
+  politicasCompromisos: '',
+  preocupacionesDireccion: ''
 },
 
 errors: {
@@ -450,6 +531,8 @@ errors: {
   regulatorio: '',
   frameworks: '',
   execute: '',
+  politicasCompromisos: '',
+  preocupacionesDireccion: ''
 },
 
     };
@@ -536,10 +619,22 @@ errors: {
       const { p8, p9, p10, p11 } = this.fase1.cadenaValor;
       return [
         'Análisis de la Cadena de Valor:',
-        `8) Materias primas y origen: ${p8}`,
-        `9) Fases del proceso: ${p9}`,
-        `10) Intensidad (energía/agua/residuos): ${p10}`,
-        `11) Fin de vida del producto: ${p11}`,
+        `1) Materias primas y origen: ${p8}`,
+        `2) Fases del proceso: ${p9}`,
+        `3) Intensidad (energía/agua/residuos): ${p10}`,
+        `4) Fin de vida del producto: ${p11}`,
+      ].join('\n');
+    },
+    buildPromptPreocupacionesDireccion() {
+      const { p12 } = this.fase1.preocupacionesDireccion;
+      return [
+        `1) Temas de sostenibilidad: ${p12}`,
+      ].join('\n');
+    },
+    buildPromptPoliticasCompromisos() {
+      const { p13 } = this.fase1.politicasCompromisos;
+      return [
+        `1) Politicas y Compromisos ${p13}`,
       ].join('\n');
     },
     // Prompts Fase 2
@@ -552,12 +647,17 @@ buildPromptBenchMarking() {
   ].join('\n');
 },
 buildPromptRegulatorio() {
-  const { p3, p4, p5 } = this.fase2.regulatorio;
+  const { p3, p4, p5, p6, p7, p8, p9 } = this.fase2.regulatorio;
   return [
     'Análisis Regulatorio y de Tendencias:',
-    `3) Nuevas leyes/regulaciones: ${p3}`,
-    `4) Tendencias (OPORTUNIDAD): ${p4}`,
-    `5) Tendencias (RIESGO): ${p5}`,
+    `1) Nuevas leyes/regulaciones: ${p3}`,
+    `2) Tendencias (OPORTUNIDAD): ${p4}`,
+    `3) Tendencias (RIESGO): ${p5}`,
+    `4) Controversias o incidentes: ${p6}`,
+    `5) Legislación preocupante: ${p7}`,
+    `6) Información ESG requerida: ${p8}`,
+    `7) Grupos de interés: ${p9}`,
+    
   ].join('\n');
 },
 buildPromptFrameworks() {
@@ -615,6 +715,12 @@ async submitFrameworks() {
     },
     async submitCadenaValor() {
       await this.postAsk(this.paths.cadenaValor, this.buildPromptCadenaValor(), 'cadenaValor');
+    },
+    async submitPreocupacionesDireccion() {
+      await this.postAsk(this.paths.preocupacionesDireccion, this.buildPromptPreocupacionesDireccion(), 'preocupacionesDireccion');
+    },
+    async submitPoliticasCompromisos() {
+      await this.postAsk(this.paths.politicasCompromisos, this.buildPromptPoliticasCompromisos(), 'politicasCompromisos');
     },
 
     saveAndContinue() {
